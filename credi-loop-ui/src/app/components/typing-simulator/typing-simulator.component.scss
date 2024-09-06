@@ -1,0 +1,25 @@
+span {
+    font-size: 5rem;
+    color: #008b62;
+}
+
+.cursor {
+    display: inline-block;
+    width: 10px;
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+    color: #8e009c;
+  }
+  
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
