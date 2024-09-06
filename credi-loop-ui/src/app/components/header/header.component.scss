@@ -1,0 +1,41 @@
+.first {
+    margin-left: 1em !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.menu-item {
+    margin: 0.3em;
+    padding-left: 0.8em;
+    padding-right: 0.8em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    border-radius: 0.3em;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #8f009cc7;
+        color: #ffffff;
+
+        span {
+            color: #ffffff;
+        }
+    }
+
+    span {
+        font-size: 1.3em;
+        font-weight: 500;
+        color: #b4b4b4;
+    }
+
+    &.active {
+        background-color: #8f009cc7;
+        color: #ffffff;
+
+        span {
+            color: #ffffff;
+        }
+    }
+}
