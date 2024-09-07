@@ -6,6 +6,7 @@ import Fuse from 'fuse.js'; // Import Fuse.js for fuzzy search
 import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LenderBoardModalComponent } from '../lenderboard-modal/lenderboard-modal.component';
+import { RequestService } from '../services/request.service';
 
 @Component({
   selector: 'app-lenderboard',
@@ -15,12 +16,13 @@ import { LenderBoardModalComponent } from '../lenderboard-modal/lenderboard-moda
   styleUrls: ['./lenderboard.component.scss'],
 })
 export class LenderboardComponent implements OnInit {
+
   boardData: LenderBoardRecord[] = [];
   filteredBoardData?: LenderBoardRecord[] = [];
   searchTerm: string = '';
   fuse?: Fuse<LenderBoardRecord>; 
 
-  constructor(private readonly data: MockDataService, private modalService: NgbModal) {}
+  constructor(private readonly data: MockDataService, private modalService: NgbModal, private requestService: RequestService) {}
 
   ngOnInit(): void {
     this.data.getLenderBoardRecords().then((response: any) => {
@@ -54,5 +56,8 @@ export class LenderboardComponent implements OnInit {
     }).catch((error) => {
       console.log('Modal dismissed');
     });
+  }
+  onLend() {
+    this.requestService.requestPayment();
   }
 }
