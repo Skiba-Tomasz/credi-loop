@@ -15,7 +15,11 @@ const docClient = DynamoDBDocumentClient.from(client, {
 
 export async function handler(event, context) {
   console.log(event);
-
+  try {
+    if (event.requestContext.http.method === "OPTIONS") {
+      return "OK";
+    }
+  } catch (e) {}
   if (event.rawPath.endsWith("create-proposal")) {
     const body = JSON.parse(event.body);
     const hash = hashCode(event.body);
