@@ -21,4 +21,11 @@ export class DataService {
       {}
     );
   }
+
+  acceptProposal(payload: any) {
+    return this.httpClient.post<any>(
+      `https://create-proposal-v1.crediloop.com/accept-proposal`,
+      payload
+    );
+  }
 }

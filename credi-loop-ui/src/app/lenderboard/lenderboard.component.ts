@@ -33,7 +33,6 @@ export class LenderboardComponent implements OnInit {
     metamaskService.$userAddress.subscribe(
       (address) => (this.address = address)
     );
-
   }
 
   ngOnInit(): void {
@@ -75,7 +74,7 @@ export class LenderboardComponent implements OnInit {
       });
   }
 
-  onLend(record: LenderBoardRecord) {
+  async onLend(record: LenderBoardRecord) {
     console.log(record);
     this.address = this.metamaskService.getUserAddress();
     if (!this.address) {
@@ -84,12 +83,38 @@ export class LenderboardComponent implements OnInit {
     }
     this.requestService.acceptLoan((record as any).requestNetworkPayload);
     const dueDates = this.generateDates(record.installments);
-    debugger
+    const results = [];
+    const payments: any[] = [];
     for (let i = 0; i < record.installments; i++) {
-      const insValue = (record.amount/record.installments) * (1+(record.apy/100))
-      debugger
-      this.requestService.requestPayment(this.address, insValue, record.address, dueDates[i]);
+      const insValue =
+        (record.amount / record.installments) * (1 + record.apy / 100);
+      //TODO group await
+      const result = await this.requestService.requestPayment(
+        this.address,
+        insValue,
+        record.address,
+        dueDates[i]
+      );
+      results.push(
+        result
+      );
+      payments.push(
+        {
+          installmentAmount: insValue,
+          installmentPaymentDate: dueDates[i],
+          installmentIndex: i,
+          requestNetworkPayload: JSON.stringify(result)
+        }
+      );
     }
+
+    this.data.acceptProposal({
+      hash: record.hash,
+      acceptingAddress: this.address,
+      payments: payments,
+    }).subscribe(results => {
+      console.log(`Completed accept ${JSON.stringify(results)}`)
+    });
   }
 
   generateDates(amount: number): string[] {

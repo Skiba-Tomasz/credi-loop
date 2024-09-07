@@ -1,4 +1,5 @@
 export interface LenderBoardRecord {
+  hash: string;
   address: string;
   crediScore: number;
   amount: number;
