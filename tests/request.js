@@ -11,7 +11,7 @@
 
   const epkSignatureProvider = new EthereumPrivateKeySignatureProvider({
     method: Types.Signature.METHOD.ECDSA,
-    privateKey: process.env.PRIVATE_KEY_1,
+    privateKey: process.env.PRIVATE_KEY_2,
   });
 
   const requestClient = new RequestNetwork({
@@ -21,8 +21,8 @@
     signatureProvider: epkSignatureProvider,
   });
 
-  const payeeIdentity = new Wallet(process.env.PRIVATE_KEY_1).address;
-  const payerIdentity = payeeIdentity;
+  const payeeIdentity = new Wallet(process.env.PRIVATE_KEY_2).address;
+  const payerIdentity = new Wallet(process.env.PRIVATE_KEY_1).address;
   const paymentRecipient = payeeIdentity;
   const feeRecipient = "0x0000000000000000000000000000000000000000";
 
