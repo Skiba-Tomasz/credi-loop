@@ -43,12 +43,14 @@
           <td>{{ record.description }}</td>
           <td>
             <button
+              *ngIf="record.accepted === false; else acceptedTemplate"
               type="button"
               class="btn btn-success"
               (click)="onLend(record)"
             >
               Lend
             </button>
+            <ng-template #acceptedTemplate> Already accepted </ng-template>
           </td>
         </tr>
       </tbody>
