@@ -85,24 +85,26 @@ export class LenderboardComponent implements OnInit {
     const dueDates = this.generateDates(record.installments);
     const results = [];
     const payments: any[] = [];
-    for (let i = 0; i < record.installments; i++) {
-      const insValue =
-        (record.amount / record.installments) * (1 + record.apy / 100);
-      //TODO group await
-      const result = await this.requestService.requestPayment(
-        this.address,
-        insValue,
-        record.address,
-        dueDates[i]
-      );
-      results.push(result);
-      payments.push({
-        installmentAmount: insValue,
-        installmentPaymentDate: dueDates[i],
-        installmentIndex: i,
-        requestNetworkPayload: JSON.stringify(result),
-      });
-    }
+
+    await Promise.all(
+      Array.from(Array(record.installments).keys()).map(async (i) => {
+        const insValue =
+          (record.amount / record.installments) * (1 + record.apy / 100);
+        const result = await this.requestService.requestPayment(
+          this.address!,
+          insValue,
+          record.address,
+          dueDates[i]
+        );
+        results.push(result);
+        payments.push({
+          installmentAmount: insValue,
+          installmentPaymentDate: dueDates[i],
+          installmentIndex: i,
+          requestNetworkPayload: JSON.stringify(result),
+        });
+      })
+    );
 
     this.data
       .acceptProposal({
