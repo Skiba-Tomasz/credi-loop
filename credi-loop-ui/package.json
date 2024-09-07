@@ -6,7 +6,12 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "buildProd": "ng build --configuration=production",
+    "clearS3": "aws s3 rm s3://crediloop.com --recursive",
+    "uploadToS3": "aws s3 sync ./dist/credi-loop-ui/browser s3://crediloop.com",
+    "cfInvalidate": "aws cloudfront create-invalidation --distribution-id E10XL9G5H8S7EE --paths '/'",
+    "deploy": "yarn buildProd && yarn clearS3 && yarn uploadToS3 && yarn cfInvalidate"
   },
   "private": true,
   "dependencies": {
