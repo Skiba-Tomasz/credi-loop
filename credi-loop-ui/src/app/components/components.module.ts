@@ -9,12 +9,10 @@ import { TypingSimulatorComponent } from './typing-simulator/typing-simulator.co
 import { lucideHandCoins } from '@ng-icons/lucide';
 import { tdesignBrowseGallery } from '@ng-icons/tdesign-icons';
 import { iconoirCoinsSwap } from '@ng-icons/iconoir';
-import { BorrowGraphComponent } from './borrow-graph/borrow-graph.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { LoanGraphComponent } from './loan-graph/loan-graph.component';
 
 @NgModule({
-  declarations: [StatsComponent, BorrowGraphComponent, LoanGraphComponent],
+  declarations: [StatsComponent],
   imports: [
     CommonModule,
     HeaderComponent,
@@ -34,8 +32,6 @@ import { LoanGraphComponent } from './loan-graph/loan-graph.component';
     TypingSimulatorComponent,
     TitleComponent,
     StatsComponent,
-    BorrowGraphComponent,
-    LoanGraphComponent,
   ],
 })
 export class ComponentsModule {}
