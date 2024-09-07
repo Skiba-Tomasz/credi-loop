@@ -31,7 +31,8 @@ export class RequestService {
   async requestPayment(
     payeeIdentity: string,
     amount: number,
-    payerIdentity?: string
+    payerIdentity?: string,
+    dueDate?: string,
   ) {
     const paymentRecipient = payeeIdentity;
     const feeRecipient = '0x0000000000000000000000000000000000000000';
@@ -78,7 +79,7 @@ export class RequestService {
       // Consider using rnf_invoice format from @requestnetwork/data-format
       contentData: {
         reason: 'For no reason',
-        dueDate: '2025.09.16',
+        dueDate: dueDate ? dueDate : '2025.09.16',
       },
 
       // The identity that signs the request, either payee or payer identity.
