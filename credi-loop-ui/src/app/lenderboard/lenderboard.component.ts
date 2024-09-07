@@ -17,25 +17,25 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./lenderboard.component.scss'],
 })
 export class LenderboardComponent implements OnInit {
-
   boardData: LenderBoardRecord[] = [];
   filteredBoardData?: LenderBoardRecord[] = [];
   searchTerm: string = '';
-  fuse?: Fuse<LenderBoardRecord>; 
+  fuse?: Fuse<LenderBoardRecord>;
 
-  constructor(private readonly data: DataService, private modalService: NgbModal, private requestService: RequestService) {}
+  constructor(
+    private readonly data: DataService,
+    private modalService: NgbModal,
+    private requestService: RequestService
+  ) {}
 
   ngOnInit(): void {
     this.data.getLenderboard().subscribe((response: any) => {
       this.boardData = response;
-      this.filteredBoardData = this.boardData; 
+      this.filteredBoardData = this.boardData;
 
       this.fuse = new Fuse(this.boardData, {
-        keys: [
-          'address',
-          'description',
-        ],
-        threshold: 0.3, 
+        keys: ['address', 'description'],
+        threshold: 0.3,
       });
     });
   }
@@ -50,16 +50,23 @@ export class LenderboardComponent implements OnInit {
   }
 
   openLenderBoardModal() {
-    const modalRef = this.modalService.open(LenderBoardModalComponent, { backdrop: false, keyboard: false, centered: true });
-
-    modalRef.result.then((result: LenderBoardRecord) => {
-      console.log('Modal closed with:', result); // Handle the form data submission here
-    }).catch((error) => {
-      console.log('Modal dismissed');
+    const modalRef = this.modalService.open(LenderBoardModalComponent, {
+      backdrop: false,
+      keyboard: false,
+      centered: true,
     });
+
+    modalRef.result
+      .then((result: LenderBoardRecord) => {
+        console.log('Modal closed with:', result); // Handle the form data submission here
+      })
+      .catch((error) => {
+        console.log('Modal dismissed');
+      });
   }
-  
-  onLend() {
-    // this.requestService.requestPayment();
+
+  onLend(record: LenderBoardRecord) {
+    console.log(record);
+    this.requestService.acceptLoan((record as any).requestNetworkPayload);
   }
 }

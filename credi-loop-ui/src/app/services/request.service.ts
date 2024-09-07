@@ -7,22 +7,24 @@ import {
 import { Web3SignatureProvider } from '@requestnetwork/web3-signature';
 import { providers } from 'ethers';
 import { MetamaskService } from './metamask.service';
+import { payRequest } from '@requestnetwork/payment-processor';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RequestService {
   requestClient?: RequestNetwork;
+  provider: any;
+  web3SignatureProvider: any;
 
   constructor(private metamaskService: MetamaskService) {
-    let provider;
-    provider = metamaskService.getProvider();
-    const web3SignatureProvider = new Web3SignatureProvider(provider);
+    this.provider = this.metamaskService.getProvider();
+    this.web3SignatureProvider = new Web3SignatureProvider(this.provider);
     this.requestClient = new RequestNetwork({
       nodeConnectionConfig: {
         baseURL: 'https://gnosis.gateway.request.network',
       },
-      signatureProvider: web3SignatureProvider,
+      signatureProvider: this.web3SignatureProvider,
     });
   }
 
@@ -41,7 +43,7 @@ export class RequestService {
           network: 'optimism',
           value: 'ETH',
         },
-        expectedAmount: amount * Math.pow(10,8), //0.00001
+        expectedAmount: amount * Math.pow(10, 8), //0.00001
 
         // The payee identity. Not necessarily the same as the payment recipient.
         payee: {
@@ -50,10 +52,12 @@ export class RequestService {
         },
 
         // The payer identity. If omitted, any identity can pay the request.
-        payer: payerIdentity ? {
-          type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
-          value: payerIdentity,
-        } : undefined,
+        payer: payerIdentity
+          ? {
+              type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
+              value: payerIdentity,
+            }
+          : undefined,
 
         // The request creation timestamp.
         timestamp: Utils.getCurrentTimestampInSecond(),
@@ -74,7 +78,7 @@ export class RequestService {
       // Consider using rnf_invoice format from @requestnetwork/data-format
       contentData: {
         reason: 'For no reason',
-        dueDate: '2024.09.16',
+        dueDate: '2025.09.16',
       },
 
       // The identity that signs the request, either payee or payer identity.
@@ -92,6 +96,16 @@ export class RequestService {
     //     console.log(`Data received ${JSON.stringify(data)}`);
     //   });
     // });
+  }
+
+  async acceptLoan(requestData: string) {
+    // const payerWallet = new Wallet(process.env.PRIVATE_KEY_1, provider);
+    console.log(this.provider);
+    const paymentTx = await payRequest(
+      JSON.parse(requestData),
+      await new providers.Web3Provider((window as any).ethereum).getSigner()
+    );
+    await paymentTx.wait(2);
   }
 
   parseUnits(value: string, decimals: number) {
