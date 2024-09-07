@@ -16,7 +16,7 @@
                     <th></th>
                 </tr>
                 <tr *ngFor="let record of filteredBoardData">
-                    <td>{{record.address}}</td>
+                    <td>{{record.address.slice(0, 3) + '...' + record.address.slice(-5)}}</td>
                     <td>{{record.crediScore}}</td>
                     <td>{{record.amount}}</td>
                     <td>{{record.installments}}</td>
