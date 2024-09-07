@@ -51,7 +51,17 @@
             <td>{{ record.installmentPaymentDate | date : "dd.MM.yyyy" }}</td>
             <td>{{ record.installmentIndex + 1 }}</td>
             <td>{{ record.installmentAmount }}</td>
-            <td><button type="button" class="btn btn-success">Pay</button></td>
+            <td>
+              <button
+                *ngIf="record.isPaid === false; else paidTemplate"
+                type="button"
+                class="btn btn-success"
+                (click)="onPay(record)"
+              >
+                Pay
+              </button>
+              <ng-template #paidTemplate> Paid </ng-template>
+            </td>
           </tr>
         </tbody>
       </table>

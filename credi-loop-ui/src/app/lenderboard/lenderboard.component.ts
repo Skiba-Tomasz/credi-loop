@@ -81,7 +81,7 @@ export class LenderboardComponent implements OnInit {
       alert('You have to connect wallet');
       return;
     }
-    this.requestService.acceptLoan((record as any).requestNetworkPayload);
+    this.requestService.pay((record as any).requestNetworkPayload);
     const dueDates = this.generateDates(record.installments);
     const results = [];
     const payments: any[] = [];

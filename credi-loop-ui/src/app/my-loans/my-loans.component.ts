@@ -9,6 +9,8 @@ import { MockDataService } from '../services/mock-data.service';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../services/data.service';
 import { MetamaskService } from '../services/metamask.service';
+import { RequestService } from '../services/request.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-my-loans',
@@ -20,7 +22,12 @@ import { MetamaskService } from '../services/metamask.service';
 export class MyLoansComponent {
   records?: PaymentRecordDetails[];
   details?: any;
-  constructor(dataService: DataService, metamaskService: MetamaskService) {
+  constructor(
+    dataService: DataService,
+    metamaskService: MetamaskService,
+    private requestService: RequestService,
+    private httpClient: HttpClient
+  ) {
     metamaskService.connectMetaMask().then((_) => {
       dataService.getPayments().subscribe((results) => {
         const filteredResults = results.filter(
@@ -44,5 +51,20 @@ export class MyLoansComponent {
         };
       });
     });
+  }
+
+  onPay(record: PaymentRecordDetails) {
+    console.log(record);
+    this.requestService
+      .pay((record as any).requestNetworkPayload)
+      .then((ok) => {
+        this.httpClient
+          .post(`https://create-proposal-v1.crediloop.com/pay`, {
+            hash: record.hash,
+          })
+          .subscribe((result) => {
+            console.log(result);
+          });
+      });
   }
 }

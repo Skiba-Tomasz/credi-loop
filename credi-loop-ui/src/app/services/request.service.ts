@@ -37,9 +37,6 @@ export class RequestService {
     const paymentRecipient = payeeIdentity;
     const feeRecipient = '0x0000000000000000000000000000000000000000';
 
-    console.log(amount);
-    console.log(amount * Math.pow(10, 18));
-
     const request = await this.requestClient?.createRequest({
       requestInfo: {
         currency: {
@@ -102,9 +99,9 @@ export class RequestService {
     // });
   }
 
-  async acceptLoan(requestData: string) {
+  async pay(requestData: string) {
     // const payerWallet = new Wallet(process.env.PRIVATE_KEY_1, provider);
-    console.log('Accepting Loan');
+    console.log('Paying');
     const paymentTx = await payRequest(
       JSON.parse(requestData),
       await new providers.Web3Provider((window as any).ethereum).getSigner()
