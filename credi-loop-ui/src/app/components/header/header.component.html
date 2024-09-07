@@ -17,6 +17,11 @@
       <span class="fw-bold">Lenderboard</span>
     </div>
   </a>
+  <a routerLinkActive="active" routerLink="/crediscore">
+    <div class="menu-item" [ngClass]="{'active': isActive('/crediscore')}">
+      <span class="fw-bold">CrediScore</span>
+    </div>
+  </a>
   <a routerLinkActive="active" routerLink="/my-loans">
     <div class="menu-item" [ngClass]="{'active': isActive('/my-loans')}">
       <span class="fw-bold">My loans</span>
