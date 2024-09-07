@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { LenderBoardRecord } from './dto/lenderboard.dto';
+import { Installment, LenderBoardRecord } from './dto/lenderboard.dto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MockDataService {
-  
-  constructor() { }
+  constructor() {}
 
   getLenderBoardRecords(): Promise<LenderBoardRecord[]> {
     return new Promise((resolve) => {
@@ -74,7 +73,8 @@ export class MockDataService {
             amount: 6000,
             installments: 30,
             apy: 4.5,
-            description: 'Renovating home and upgrading equipment for business.',
+            description:
+              'Renovating home and upgrading equipment for business.',
           },
           {
             address: '0xC45D23EfF36f8CcAcCE3Ed0D9aEfB28B8AcE9F53',
@@ -95,5 +95,35 @@ export class MockDataService {
         ]);
       }, 500);
     });
+  }
+
+  getInstallements(count: number): Installment[] {
+    const installments: Installment[] = [];
+
+    for (let i = 1; i <= count; i++) {
+      const mockInstallment: Installment = {
+        address: `123 Example St, City ${i}`,
+        dueDate: this.randomDate(new Date(2023, 0, 1), new Date(2024, 11, 31)),
+        installment: i,
+        totalInstallments: 12, // or any other logic
+        amount: this.randomAmount(100, 1000),
+      };
+
+      installments.push(mockInstallment);
+    }
+
+    return installments;
+  }
+
+  // Generate random date between two dates
+  private randomDate(start: Date, end: Date): Date {
+    return new Date(
+      start.getTime() + Math.random() * (end.getTime() - start.getTime())
+    );
+  }
+
+  // Generate random amount
+  private randomAmount(min: number, max: number): number {
+    return Math.random() * (max - min) + min;
   }
 }

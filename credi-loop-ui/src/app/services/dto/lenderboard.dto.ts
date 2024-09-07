@@ -7,14 +7,13 @@ export interface LenderBoardRecord {
   description: string;
 }
 
-export interface LenderBoardRecordCreate{
+export interface LenderBoardRecordCreate {
   address: string;
   amount: number;
   installments: number;
   apy: number;
   description: string;
 }
-
 
 export interface PaymentRecord {
   address: string;
@@ -32,3 +31,10 @@ export interface CreditData {
   address: string;
 }
 
+export interface Installment {
+  address: string;
+  dueDate: Date;
+  installment: number;
+  totalInstallments: number;
+  amount: number;
+}
