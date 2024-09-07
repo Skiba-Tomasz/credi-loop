@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import { ComponentsModule } from '../components/components.module';
 
 @Component({
   selector: 'app-my-loans',
   standalone: true,
-  imports: [],
+  imports: [ComponentsModule],
   templateUrl: './my-loans.component.html',
-  styleUrl: './my-loans.component.scss'
+  styleUrl: './my-loans.component.scss',
 })
-export class MyLoansComponent {
-
-}
+export class MyLoansComponent {}

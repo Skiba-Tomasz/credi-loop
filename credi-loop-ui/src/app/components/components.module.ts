@@ -10,11 +10,11 @@ import { lucideHandCoins } from '@ng-icons/lucide';
 import { tdesignBrowseGallery } from '@ng-icons/tdesign-icons';
 import { iconoirCoinsSwap } from '@ng-icons/iconoir';
 import { BorrowGraphComponent } from './borrow-graph/borrow-graph.component';
-import { NgApexchartsModule } from "ng-apexcharts"
-
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { LoanGraphComponent } from './loan-graph/loan-graph.component';
 
 @NgModule({
-  declarations: [StatsComponent, BorrowGraphComponent],
+  declarations: [StatsComponent, BorrowGraphComponent, LoanGraphComponent],
   imports: [
     CommonModule,
     HeaderComponent,
@@ -26,7 +26,7 @@ import { NgApexchartsModule } from "ng-apexcharts"
       lucideHandCoins,
       tdesignBrowseGallery,
       iconoirCoinsSwap,
-      bootstrapOption
+      bootstrapOption,
     }),
   ],
   exports: [
@@ -34,7 +34,8 @@ import { NgApexchartsModule } from "ng-apexcharts"
     TypingSimulatorComponent,
     TitleComponent,
     StatsComponent,
-    BorrowGraphComponent
+    BorrowGraphComponent,
+    LoanGraphComponent,
   ],
 })
 export class ComponentsModule {}
