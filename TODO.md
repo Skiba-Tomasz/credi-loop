@@ -1,0 +1,3 @@
+- after creating proposal - reload list of proposals
+- after lend - reload list of proposals
+- after chaning address in metamask - reload on page

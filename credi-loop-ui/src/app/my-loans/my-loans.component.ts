@@ -37,18 +37,26 @@ export class MyLoansComponent {
         );
         console.log(filteredResults);
         this.records = filteredResults;
-        this.details = {
-          totalMoneyBorrowed: filteredResults.reduce(
-            (acc, curr) => acc + curr.installmentAmount,
-            0
-          ),
-          apy:
-            filteredResults.reduce((acc, curr) => {
-              const apy = curr.apy ? curr.apy : 0;
-              return acc + apy;
-            }, 0) / filteredResults.length,
-          remainingInstallments: 2,
-        };
+        if (filteredResults.length > 0) {
+          this.details = {
+            totalMoneyBorrowed: filteredResults.reduce(
+              (acc, curr) => acc + curr.installmentAmount,
+              0
+            ),
+            apy:
+              filteredResults.reduce((acc, curr) => {
+                const apy = curr.apy ? curr.apy : 0;
+                return acc + apy;
+              }, 0) / filteredResults.length,
+            remainingInstallments: filteredResults.length,
+          };
+        } else {
+          this.details = {
+            totalMoneyBorrowed: 0,
+            apy: 0,
+            remainingInstallments: 0,
+          };
+        }
       });
     });
   }

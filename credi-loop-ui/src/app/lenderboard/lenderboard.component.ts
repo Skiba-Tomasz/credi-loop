@@ -36,6 +36,7 @@ export class LenderboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.metamaskService.connectMetaMask();
     this.data.getLenderboard().subscribe((response: any) => {
       this.boardData = response;
       this.filteredBoardData = this.boardData.filter(
