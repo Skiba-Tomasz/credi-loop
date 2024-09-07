@@ -21,22 +21,28 @@ export class MyLoansComponent {
   records?: PaymentRecordDetails[];
   details?: any;
   constructor(dataService: DataService, metamaskService: MetamaskService) {
-    dataService.getPayments().subscribe((results) => {
-      const filteredResults = results.filter(
-        (e) =>
-          e.borrower.toLowerCase() ===
-          metamaskService.getUserAddress()?.toLowerCase()
-      );
-      console.log(filteredResults);
-      this.records = filteredResults;
-      this.details = {
-        totalMoneyBorrowed: filteredResults.reduce(
-          (acc, curr) => acc + curr.installmentAmount,
-          0
-        ),
-        apy: filteredResults.reduce((acc, curr) => acc + curr.apy, 0),
-        remainingInstallments: 2,
-      };
+    metamaskService.connectMetaMask().then((_) => {
+      dataService.getPayments().subscribe((results) => {
+        const filteredResults = results.filter(
+          (e) =>
+            e.borrower.toLowerCase() ===
+            metamaskService.getUserAddress()?.toLowerCase()
+        );
+        console.log(filteredResults);
+        this.records = filteredResults;
+        this.details = {
+          totalMoneyBorrowed: filteredResults.reduce(
+            (acc, curr) => acc + curr.installmentAmount,
+            0
+          ),
+          apy:
+            filteredResults.reduce((acc, curr) => {
+              const apy = curr.apy ? curr.apy : 0;
+              return acc + apy;
+            }, 0) / filteredResults.length,
+          remainingInstallments: 2,
+        };
+      });
     });
   }
 }
