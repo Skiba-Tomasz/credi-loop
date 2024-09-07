@@ -25,8 +25,10 @@
     "@ng-icons/iconoir": "^29.5.0",
     "@ng-icons/lucide": "^29.5.0",
     "@ng-icons/tdesign-icons": "^29.5.0",
+    "apexcharts": "^3.53.0",
     "fuse.js": "^7.0.0",
     "ng-animate": "^2.0.1",
+    "ng-apexcharts": "^1.11.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

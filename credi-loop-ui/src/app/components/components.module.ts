@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { bootstrapPercent } from '@ng-icons/bootstrap-icons';
+import { bootstrapOption, bootstrapPercent } from '@ng-icons/bootstrap-icons';
 import { NgIconsModule } from '@ng-icons/core';
 import { HeaderComponent } from './header/header.component';
 import { StatsComponent } from './stats/stats.component';
@@ -9,19 +9,24 @@ import { TypingSimulatorComponent } from './typing-simulator/typing-simulator.co
 import { lucideHandCoins } from '@ng-icons/lucide';
 import { tdesignBrowseGallery } from '@ng-icons/tdesign-icons';
 import { iconoirCoinsSwap } from '@ng-icons/iconoir';
+import { BorrowGraphComponent } from './borrow-graph/borrow-graph.component';
+import { NgApexchartsModule } from "ng-apexcharts"
+
 
 @NgModule({
-  declarations: [StatsComponent],
+  declarations: [StatsComponent, BorrowGraphComponent],
   imports: [
     CommonModule,
     HeaderComponent,
     TypingSimulatorComponent,
     TitleComponent,
+    NgApexchartsModule,
     NgIconsModule.withIcons({
       bootstrapPercent,
       lucideHandCoins,
       tdesignBrowseGallery,
-      iconoirCoinsSwap
+      iconoirCoinsSwap,
+      bootstrapOption
     }),
   ],
   exports: [
@@ -29,6 +34,7 @@ import { iconoirCoinsSwap } from '@ng-icons/iconoir';
     TypingSimulatorComponent,
     TitleComponent,
     StatsComponent,
+    BorrowGraphComponent
   ],
 })
 export class ComponentsModule {}
