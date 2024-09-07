@@ -13,6 +13,7 @@ export class CrediScoreComponent {
   address?: string;
 
   constructor(private metamask: MetamaskService) {
+    this.address = metamask.getUserAddress();
     metamask.$userAddress.subscribe((address) => (this.address = address));
   }
 }

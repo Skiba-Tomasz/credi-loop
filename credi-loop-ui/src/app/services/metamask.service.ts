@@ -6,8 +6,9 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class MetamaskService {
-  private userAddress = new Subject<string>();
-  $userAddress = this.userAddress.asObservable();
+  private userAddressSub = new Subject<string>();
+  private userAddress?: string;
+  $userAddress = this.userAddressSub.asObservable();
 
   private provider: any;
 
@@ -41,8 +42,9 @@ export class MetamaskService {
       const accounts = await this.provider.request({
         method: 'eth_requestAccounts',
       });
-      this.userAddress.next(accounts[0]); // Return the first account
-      return this.userAddress;
+      this.userAddressSub.next(accounts[0]); // Return the first account
+      this.userAddress = accounts[0];
+      return this.userAddressSub;
     } catch (error) {
       console.error('User denied MetaMask connection:', error);
       return null;
