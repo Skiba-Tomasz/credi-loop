@@ -25,3 +25,10 @@ export interface PaymentRecord {
   description: string;
   time: Date;
 }
+
+export interface CreditData {
+  creditScore: number;
+  partition: string;
+  address: string;
+}
+
