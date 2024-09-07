@@ -33,9 +33,9 @@ async function fetchAll() {
       return payments;
     }
     //TODO: just for testing
-    if (payments.length > 0) {
-      return payments;
-    }
+    // if (payments.length > 0) {
+    //   return payments;
+    // }
     payments = payments.concat(newPayments);
     iterator += newPayments.length;
     console.log(iterator);
