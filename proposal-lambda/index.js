@@ -96,6 +96,8 @@ export async function handler(event, context) {
         installmentAmount: bodyPayment.installmentAmount,
         installmentPaymentDate: bodyPayment.installmentPaymentDate,
         installmentIndex: bodyPayment.installmentIndex,
+        requestNetworkPayload: bodyPayment.requestNetworkPayload,
+        isPaid: false,
       };
       const command = new PutCommand({
         TableName: "payments-v1",
@@ -138,10 +140,10 @@ function hashCode(str) {
 //   rawPath: "/dev/execute/get-proposals",
 // });
 
-// handler({
-//   rawPath: "/dev/execute/accept-proposal",
-//   body: '{"hash": 1437014403, "acceptingAddress": "0xe28bAB89e496d45A6AD17588AB339bC571483791", "payments": [{ "installmentAmount": 5, "installmentPaymentDate": 5555, "installmentIndex": 0 }, { "installmentAmount": 5, "installmentPaymentDate": 6666, "installmentIndex": 1 }]}',
-// });
+handler({
+  rawPath: "/dev/execute/accept-proposal",
+  body: '{"hash": 1437014403, "acceptingAddress": "0xe28bAB89e496d45A6AD17588AB339bC571483791", "payments": [{ "installmentAmount": 5, "installmentPaymentDate": 5555, "installmentIndex": 0, "requestNetworkPayload": "aaaa" }, { "installmentAmount": 5, "installmentPaymentDate": 6666, "installmentIndex": 1, "requestNetworkPayload": "aaaa" }]}',
+});
 
 // handler({
 //   rawPath: "/dev/execute/get-payments",
