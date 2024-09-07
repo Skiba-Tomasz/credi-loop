@@ -32,4 +32,10 @@
       <span class="fw-bold">My borrows</span>
     </div>
   </a>
+  <a class="ml-auto mr-2" (click)="connectWallet()">
+    <div class="menu-item active">
+      <span *ngIf="!address" class="fw-bold">Connect</span>
+      <span *ngIf="address" class="fw-bold">{{address.slice(0, 3) + '...' + address.slice(-5)}}</span>
+    </div>
+  </a>
 </div>

@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
     "@forevolve/bootstrap-dark": "^4.0.2",
+    "@metamask/detect-provider": "^2.0.0",
     "@ng-icons/bootstrap-icons": "^29.5.0",
     "@ng-icons/core": "^29.5.0",
     "@ng-icons/cryptocurrency-icons": "^29.5.0",
