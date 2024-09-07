@@ -86,21 +86,17 @@ export async function handler(event, context) {
       },
     });
     await docClient.send(command);
-    const installmentAmount = totalAmount / item.installments;
-    // const payments = [];
-    var installmentPaymentDate = new Date();
-    for (let i = 0; i < item.installments; i++) {
-      installmentPaymentDate = add(installmentPaymentDate, { months: 1 });
+    for (let i = 0; i < payments.length; i++) {
+      const bodyPayment = payments[i];
       const payment = {
         partition: "ALL",
         hash: `${item.hash}-${i}`,
         borrower: item.address,
         lender: body.acceptingAddress,
-        installmentAmount: installmentAmount,
-        installmentsCount: item.installments,
-        installmentPaymentDate: installmentPaymentDate.getTime(),
+        installmentAmount: bodyPayment.installmentAmount,
+        installmentPaymentDate: bodyPayment.installmentPaymentDate,
+        installmentIndex: bodyPayment.installmentIndex,
       };
-      payments.push(payment);
       const command = new PutCommand({
         TableName: "payments-v1",
         Item: payment,
@@ -134,5 +130,5 @@ function hashCode(str) {
 
 // handler({
 //   rawPath: "/dev/execute/accept-proposal",
-//   body: '{"hash": 1437014403, "acceptingAddress": "addressThatAccepted", "payments": [{}]}',
+//   body: '{"hash": 1437014403, "acceptingAddress": "0xe28bAB89e496d45A6AD17588AB339bC571483791", "payments": [{ "installmentAmount": 5, "installmentPaymentDate": 5555, "installmentIndex": 0 }, { "installmentAmount": 5, "installmentPaymentDate": 6666, "installmentIndex": 1 }]}',
 // });
