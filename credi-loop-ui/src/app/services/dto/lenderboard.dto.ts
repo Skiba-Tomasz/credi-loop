@@ -13,6 +13,7 @@ export interface LenderBoardRecordCreate {
   installments: number;
   apy: number;
   description: string;
+  requestNetworkPayload: string;
 }
 
 export interface PaymentRecord {
