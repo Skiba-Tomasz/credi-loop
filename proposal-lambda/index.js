@@ -4,6 +4,7 @@ import {
   PutCommand,
   QueryCommand,
 } from "@aws-sdk/lib-dynamodb";
+import add from "date-fns/add";
 
 const client = new DynamoDBClient({ region: "eu-west-2" });
 const docClient = DynamoDBDocumentClient.from(client, {
@@ -33,6 +34,8 @@ export async function handler(event, context) {
         description: body.description,
         requestNetworkPayload: body.requestNetworkPayload,
         accepted: false,
+        acceptingAddress: null,
+        totalAmount: null,
       },
     });
     await docClient.send(command);
@@ -58,6 +61,9 @@ export async function handler(event, context) {
     });
     const results = (await docClient.send(proposalsCommand)).Items;
     const item = results[0];
+    const interest =
+      (((item.installments / 12.0) * item.apy) / 100) * item.amount;
+    const totalAmount = interest + item.amount;
     const command = new PutCommand({
       TableName: "proposals-v1",
       Item: {
@@ -70,10 +76,35 @@ export async function handler(event, context) {
         description: item.description,
         requestNetworkPayload: item.requestNetworkPayload,
         accepted: true,
+        acceptingAddress: body.acceptingAddress,
+        totalAmount: totalAmount,
       },
     });
     await docClient.send(command);
+    const installmentAmount = totalAmount / item.installments;
+    const payments = [];
+    var installmentPaymentDate = new Date();
+    for (let i = 0; i < item.installments; i++) {
+      installmentPaymentDate = add(installmentPaymentDate, { months: 1 });
+      const payment = {
+        partition: "ALL",
+        hash: `${item.hash}-${i}`,
+        borrower: item.address,
+        lender: body.acceptingAddress,
+        installmentAmount: installmentAmount,
+        installmentsCount: item.installments,
+        installmentPaymentDate: installmentPaymentDate.getTime(),
+      };
+      payments.push(payment);
+      const command = new PutCommand({
+        TableName: "payments-v1",
+        Item: payment,
+      });
+      await docClient.send(command);
+    }
+
     console.log(results);
+    return payments;
   }
 }
 
@@ -96,7 +127,7 @@ function hashCode(str) {
 //   rawPath: "/dev/execute/get-proposals",
 // });
 
-// handler({
-//   rawPath: "/dev/execute/accept-proposal",
-//   body: '{"hash": 1437014403}',
-// });
+handler({
+  rawPath: "/dev/execute/accept-proposal",
+  body: '{"hash": 1437014403, "acceptingAddress": "addressThatAccepted"}',
+});

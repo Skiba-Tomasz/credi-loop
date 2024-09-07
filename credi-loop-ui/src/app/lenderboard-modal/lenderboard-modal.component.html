@@ -1,37 +1,64 @@
 <div class="modal-container">
-    <div class="modal-header">
-        <h4 class="modal-title">Request for founding</h4>
-    </div>
-    <div class="modal-body">
-        <form (ngSubmit)="onSubmit()">
-            <div class="mb-3">
-                <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" [(ngModel)]="record.address" name="address" required>
-            </div>
-            <div class="mb-3">
-                <label for="amount" class="form-label">Amount</label>
-                <input type="number" class="form-control" id="amount" [(ngModel)]="record.amount" name="amount" required>
-            </div>
-            <div class="mb-3">
-                <label for="installments" class="form-label">Installments</label>
-                <input type="number" class="form-control" id="installments" [(ngModel)]="record.installments"
-                    name="installments" required>
-            </div>
-            <div class="mb-3">
-                <label for="apy" class="form-label">APY</label>
-                <input type="number" class="form-control" id="apy" [(ngModel)]="record.apy" name="apy" required>
-            </div>
-            <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" [(ngModel)]="record.description" name="description"
-                    required></textarea>
-            </div>
+  <div class="modal-header">
+    <h4 class="modal-title">Request for founding</h4>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="amount" class="form-label">Amount</label>
+        <input
+          type="number"
+          class="form-control"
+          id="amount"
+          [(ngModel)]="record.amount"
+          name="amount"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="installments" class="form-label">Installments</label>
+        <input
+          type="number"
+          class="form-control"
+          id="installments"
+          [(ngModel)]="record.installments"
+          name="installments"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="apy" class="form-label">APY</label>
+        <input
+          type="number"
+          class="form-control"
+          id="apy"
+          [(ngModel)]="record.apy"
+          name="apy"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          id="description"
+          [(ngModel)]="record.description"
+          name="description"
+          required
+        ></textarea>
+      </div>
 
-            <!-- Centered Buttons -->
-            <div class="text-center mt-4">
-                <button type="button" class="btn btn-secondary mr-2" (click)="activeModal.dismiss('Cross click')">Close</button>
-                <button type="submit" class="btn btn-success">Submit</button>
-            </div>
-        </form>
-    </div>
+      <!-- Centered Buttons -->
+      <div class="text-center mt-4">
+        <button
+          type="button"
+          class="btn btn-secondary mr-2"
+          (click)="activeModal.dismiss('Cross click')"
+        >
+          Close
+        </button>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+    </form>
+  </div>
 </div>
