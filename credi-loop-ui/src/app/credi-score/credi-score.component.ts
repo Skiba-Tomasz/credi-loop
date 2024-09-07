@@ -4,11 +4,12 @@ import { MetamaskService } from '../services/metamask.service';
 import { FormsModule } from '@angular/forms';
 import { CreditData } from '../services/dto/lenderboard.dto';
 import { DataService } from '../services/data.service';
+import { ComponentsModule } from '../components/components.module';
 
 @Component({
   selector: 'app-credi-score',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ComponentsModule],
   templateUrl: './credi-score.component.html',
   styleUrl: './credi-score.component.scss',
 })
@@ -18,6 +19,7 @@ export class CrediScoreComponent implements OnInit {
   data?: CreditData[];
   filteredData?: CreditData[];
   addressData?: CreditData;
+  asc: boolean = true;
 
   constructor(
     private metamask: MetamaskService,
@@ -43,6 +45,24 @@ export class CrediScoreComponent implements OnInit {
       this.filteredData = this.data?.filter((d) =>
         this.searchTerm ? d.address.includes(this.searchTerm) : false
       );
+    }
+  }
+
+  sort() {
+    console.log(`Sort`);
+    this.asc = !this.asc;
+    if (this.searchTerm) {
+      this.filteredData = this.filteredData?.sort((a, b) =>
+        this.asc ? b.creditScore - a.creditScore : a.creditScore - b.creditScore
+      );
+    } else {
+      this.filteredData = this.data
+        ?.sort((a, b) =>
+          this.asc
+            ? b.creditScore - a.creditScore
+            : a.creditScore - b.creditScore
+        )
+        .slice(0, 50);
     }
   }
 }

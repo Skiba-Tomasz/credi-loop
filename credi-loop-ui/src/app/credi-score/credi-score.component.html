@@ -15,7 +15,7 @@
             <tbody>
                 <tr>
                     <th>Address</th>
-                    <th>CrediScore</th>
+                    <th>CrediScore <a (click)="sort()">{{asc ? '(highest)' : '(lowest)'}}</a></th>
                     <th>Partition</th>
                 </tr>
                 <tr *ngFor="let record of filteredData">
