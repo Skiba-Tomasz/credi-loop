@@ -1,35 +1,51 @@
 <div class="bg-section">
-    <div *ngIf="!address; else connected" class="d-flex justify-content-center align-items-center mt-5">
-        <h1>Connect wallet to check your CrediScore!</h1>
-    </div>
-    <h5 class="d-flex justify-content-center align-items-center mt-5">or</h5>
-    <h1 class="d-flex justify-content-center align-items-center">Search for address</h1>
-    <div class="d-flex justify-content-center align-items-center">
-        <input type="text" class="form-control search" placeholder="Search for address or description..."
-            [(ngModel)]="searchTerm" (input)="onSearch()" style="width: 90%;" />
-    </div>
+  <div
+    *ngIf="!address; else connected"
+    class="d-flex justify-content-center align-items-center mt-5"
+  >
+    <h1>Connect wallet to check your CrediScore!</h1>
+  </div>
+  <h5 class="d-flex justify-content-center align-items-center mt-5">or</h5>
+  <h1 class="d-flex justify-content-center align-items-center">
+    Search for address
+  </h1>
+  <div class="d-flex justify-content-center align-items-center">
+    <input
+      type="text"
+      class="form-control search"
+      placeholder="Search for address or description..."
+      [(ngModel)]="searchTerm"
+      (input)="onSearch()"
+      style="width: 90%"
+    />
+  </div>
 
-    <div class="card card-flush mr-1 ml-1 mt-2">
-
-        <table class="table table-dark" style="width: calc(100% - 20px); margin: 10px; box-sizing: border-box;">
-            <tbody>
-                <tr>
-                    <th>Address</th>
-                    <th>CrediScore <a (click)="sort()">{{asc ? '(highest)' : '(lowest)'}}</a></th>
-                    <th>Partition</th>
-                </tr>
-                <tr *ngFor="let record of filteredData">
-                    <td>{{record.address}}</td>
-                    <td>{{record.creditScore}}</td>
-                    <td>{{record.partition}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <div class="card card-flush mr-1 ml-1 mt-2">
+    <table
+      class="table table-dark"
+      style="width: calc(100% - 20px); margin: 10px; box-sizing: border-box"
+    >
+      <tbody>
+        <tr>
+          <th>Address</th>
+          <th>
+            CrediScore
+            <a (click)="sort()">{{ asc ? "(highest)" : "(lowest)" }}</a>
+          </th>
+        </tr>
+        <tr *ngFor="let record of filteredData">
+          <td>{{ record.address }}</td>
+          <td>{{ record.creditScore }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <ng-template #connected>
-    <div class="d-flex justify-content-center align-items-center mt-5">
-        <h1>Your CrediScore is {{addressData ? addressData.creditScore : 'unknown'}}</h1>
-    </div>
+  <div class="d-flex justify-content-center align-items-center mt-5">
+    <h1>
+      Your CrediScore is {{ addressData ? addressData.creditScore : "unknown" }}
+    </h1>
+  </div>
 </ng-template>

@@ -1,27 +1,24 @@
 <div class="bg-section">
   <div class="row mt-2 mr-0 ml-0">
-    <div class="col-3">
+    <div class="col-4">
       <app-stats
-        title="Total money loaned"
+        title="Total money borrowed"
         icon="iconoirCoinsSwap"
-        body="5649$"
+        body="{{ details.totalMoneyBorrowed }} ETH"
       ></app-stats>
     </div>
-    <div class="col-3">
+    <div class="col-4">
       <app-stats
-        title="Remaining loan"
-        icon="lucideHandCoins"
-        body="462$"
+        title="Apy"
+        icon="bootstrapPercent"
+        body="{{ details.apy }}%"
       ></app-stats>
     </div>
-    <div class="col-3">
-      <app-stats title="Apy" icon="bootstrapPercent" body="5.8%"></app-stats>
-    </div>
-    <div class="col-3">
+    <div class="col-4">
       <app-stats
         title="Remaining installments"
         icon="tdesignBrowseGallery"
-        body="59"
+        body="{{ details.remainingInstallments }}"
       ></app-stats>
     </div>
   </div>

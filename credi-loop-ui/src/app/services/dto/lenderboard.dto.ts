@@ -51,4 +51,5 @@ export interface PaymentRecordDetails {
   installmentIndex: number;
   installmentAmount: number;
   installmentPaymentDate: string;
+  apy: number;
 }

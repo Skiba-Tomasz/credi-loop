@@ -98,6 +98,7 @@ export async function handler(event, context) {
         installmentIndex: bodyPayment.installmentIndex,
         requestNetworkPayload: bodyPayment.requestNetworkPayload,
         isPaid: false,
+        apy: item.apy,
       };
       const command = new PutCommand({
         TableName: "payments-v1",
@@ -117,6 +118,34 @@ export async function handler(event, context) {
     });
     const results = (await docClient.send(proposalsCommand)).Items;
     console.log(results);
+    return results;
+  } else if (event.rawPath.endsWith("pay")) {
+    const body = JSON.parse(event.body);
+    const proposalsCommand = new QueryCommand({
+      TableName: "payments-v1",
+      KeyConditionExpression: "#key = :key AND #hash = :hash",
+      ExpressionAttributeNames: { "#key": "partition", "#hash": "hash" },
+      ExpressionAttributeValues: { ":key": "ALL", ":hash": body.hash },
+    });
+    const results = (await docClient.send(proposalsCommand)).Items;
+    const payment = results[0];
+    const paymentUpdated = {
+      partition: "ALL",
+      hash: payment.hash,
+      borrower: payment.borrower,
+      lender: payment.lender,
+      installmentAmount: payment.installmentAmount,
+      installmentPaymentDate: payment.installmentPaymentDate,
+      installmentIndex: payment.installmentIndex,
+      requestNetworkPayload: payment.requestNetworkPayload,
+      isPaid: true,
+      apy: payment.apy,
+    };
+    const command = new PutCommand({
+      TableName: "payments-v1",
+      Item: paymentUpdated,
+    });
+    await docClient.send(command);
     return results;
   }
 }
@@ -147,4 +176,9 @@ function hashCode(str) {
 
 // handler({
 //   rawPath: "/dev/execute/get-payments",
+// });
+
+// handler({
+//   rawPath: "/dev/execute/pay",
+//   body: `{"hash": "1437014403-0"}`,
 // });
