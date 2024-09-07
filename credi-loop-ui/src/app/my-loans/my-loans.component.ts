@@ -36,6 +36,7 @@ export class MyLoansComponent {
             metamaskService.getUserAddress()?.toLowerCase()
         );
         console.log(filteredResults);
+        filteredResults.sort((a, b) => a.installmentIndex - b.installmentIndex);
         this.records = filteredResults;
         if (filteredResults.length > 0) {
           this.details = {
