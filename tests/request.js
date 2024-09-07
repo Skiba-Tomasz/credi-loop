@@ -30,9 +30,9 @@
     requestInfo: {
       currency: {
         type: Types.RequestLogic.CURRENCY.ETH,
-        network: "mantle",
+        network: "bsc",
       },
-      expectedAmount: "10000000000000000", //0.01 MNT
+      expectedAmount: "10000000000000", //0.00001
       payee: {
         type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
         value: payeeIdentity,
@@ -46,7 +46,7 @@
     paymentNetwork: {
       id: Types.Extension.PAYMENT_NETWORK_ID.ETH_FEE_PROXY_CONTRACT,
       parameters: {
-        paymentNetworkName: "mantle",
+        paymentNetworkName: "bsc",
         paymentAddress: paymentRecipient,
         feeAddress: feeRecipient,
         feeAmount: "0",
