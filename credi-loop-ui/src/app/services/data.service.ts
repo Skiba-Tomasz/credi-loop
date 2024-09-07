@@ -7,12 +7,18 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService {
-
   constructor(private readonly httpClient: HttpClient) {}
 
-
-  getLenderboard(): Observable<CreditData[]> {
-    return this.httpClient.get<CreditData[]>(`https://get-cs-v1.crediloop.com/`)
+  getCrediscores(): Observable<CreditData[]> {
+    return this.httpClient.get<CreditData[]>(
+      `https://get-cs-v1.crediloop.com/`
+    );
   }
 
+  getLenderboard(): Observable<LenderBoardRecord[]> {
+    return this.httpClient.post<LenderBoardRecord[]>(
+      `https://create-proposal-v1.crediloop.com/get-proposals`,
+      {}
+    );
+  }
 }

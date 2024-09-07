@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LenderBoardModalComponent } from '../lenderboard-modal/lenderboard-modal.component';
 import { RequestService } from '../services/request.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-lenderboard',
@@ -22,10 +23,10 @@ export class LenderboardComponent implements OnInit {
   searchTerm: string = '';
   fuse?: Fuse<LenderBoardRecord>; 
 
-  constructor(private readonly data: MockDataService, private modalService: NgbModal, private requestService: RequestService) {}
+  constructor(private readonly data: DataService, private modalService: NgbModal, private requestService: RequestService) {}
 
   ngOnInit(): void {
-    this.data.getLenderBoardRecords().then((response: any) => {
+    this.data.getLenderboard().subscribe((response: any) => {
       this.boardData = response;
       this.filteredBoardData = this.boardData; 
 

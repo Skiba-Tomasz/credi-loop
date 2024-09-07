@@ -32,7 +32,7 @@ export class CrediScoreComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.dataService.getLenderboard().subscribe((results) => {
+    this.dataService.getCrediscores().subscribe((results) => {
       this.data = results;
     });
   }
