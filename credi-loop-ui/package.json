@@ -32,6 +32,8 @@
     "@ng-icons/iconoir": "^29.5.0",
     "@ng-icons/lucide": "^29.5.0",
     "@ng-icons/tdesign-icons": "^29.5.0",
+    "@requestnetwork/request-client.js": "^0.49.0",
+    "@requestnetwork/web3-signature": "^0.8.0",
     "apexcharts": "^3.53.0",
     "fuse.js": "^7.0.0",
     "ng-animate": "^2.0.1",
