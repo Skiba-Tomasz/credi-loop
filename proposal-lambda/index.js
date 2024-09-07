@@ -52,6 +52,7 @@ export async function handler(event, context) {
   } else if (event.rawPath.endsWith("accept-proposal")) {
     const body = JSON.parse(event.body);
     console.log(body.hash);
+    const payments = body.payments;
 
     const proposalsCommand = new QueryCommand({
       TableName: "proposals-v1",
@@ -82,7 +83,7 @@ export async function handler(event, context) {
     });
     await docClient.send(command);
     const installmentAmount = totalAmount / item.installments;
-    const payments = [];
+    // const payments = [];
     var installmentPaymentDate = new Date();
     for (let i = 0; i < item.installments; i++) {
       installmentPaymentDate = add(installmentPaymentDate, { months: 1 });
@@ -127,7 +128,7 @@ function hashCode(str) {
 //   rawPath: "/dev/execute/get-proposals",
 // });
 
-handler({
-  rawPath: "/dev/execute/accept-proposal",
-  body: '{"hash": 1437014403, "acceptingAddress": "addressThatAccepted"}',
-});
+// handler({
+//   rawPath: "/dev/execute/accept-proposal",
+//   body: '{"hash": 1437014403, "acceptingAddress": "addressThatAccepted", "payments": [{}]}',
+// });
