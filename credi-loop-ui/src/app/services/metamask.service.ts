@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import detectEthereumProvider from '@metamask/detect-provider';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MetamaskService {
-  userAddress?: string;
+  private userAddress = new Subject<string>();
+  $userAddress = this.userAddress.asObservable();
 
   private provider: any;
 
@@ -39,8 +41,7 @@ export class MetamaskService {
       const accounts = await this.provider.request({
         method: 'eth_requestAccounts',
       });
-      this.userAddress = accounts[0]; // Return the first account
-      debugger;
+      this.userAddress.next(accounts[0]); // Return the first account
       return this.userAddress;
     } catch (error) {
       console.error('User denied MetaMask connection:', error);

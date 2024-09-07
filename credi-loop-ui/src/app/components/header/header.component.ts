@@ -16,7 +16,11 @@ export class HeaderComponent {
   constructor(
     private router: Router,
     private metamaskService: MetamaskService
-  ) {}
+  ) {
+    metamaskService.$userAddress.subscribe(
+      (address) => (this.address = address)
+    );
+  }
 
   isActive(url: string): boolean {
     return this.router.isActive(url, {
@@ -27,8 +31,6 @@ export class HeaderComponent {
     });
   }
   async connectWallet() {
-    this.metamaskService
-      .connectMetaMask()
-      .then((resp) => (this.address = this.metamaskService.getUserAddress()));
+    this.metamaskService.connectMetaMask();
   }
 }

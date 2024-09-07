@@ -1,5 +1,11 @@
 <div class="bg-section">
-    <div class="d-flex justify-content-center align-items-center mt-5">
+    <div *ngIf="!address; else connected" class="d-flex justify-content-center align-items-center mt-5">
         <h1>Connect wallet to check your CrediScore!</h1>
     </div>
 </div>
+
+<ng-template #connected>
+    <div class="d-flex justify-content-center align-items-center mt-5">
+        <h1>CrediScore for address {{address}}</h1>
+    </div>
+</ng-template>
