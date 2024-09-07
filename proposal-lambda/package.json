@@ -13,6 +13,6 @@
   "scripts": {
     "clean": "rm -rf ./build.zip",
     "zip": "zip -r build.zip .",
-    "push": "aws s3api put-object --bucket credi-loop-lambdas --key v1.3-proposal.zip --body ./build.zip"
+    "push": "aws s3api put-object --bucket credi-loop-lambdas --key v1.4-proposal.zip --body ./build.zip"
   }
 }
