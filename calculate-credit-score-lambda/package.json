@@ -1,0 +1,12 @@
+{
+  "name": "calculate-credit-score-lambda",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.556.0",
+    "@aws-sdk/lib-dynamodb": "^3.556.0",
+    "axios": "^1.7.7"
+  }
+}
