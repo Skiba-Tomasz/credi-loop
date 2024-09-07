@@ -7,7 +7,8 @@
   const {
     EthereumPrivateKeySignatureProvider,
   } = require("@requestnetwork/epk-signature");
-  const { Wallet } = require("ethers");
+  const { Wallet, providers } = require("ethers");
+  const { payRequest } = require("@requestnetwork/payment-processor");
 
   const epkSignatureProvider = new EthereumPrivateKeySignatureProvider({
     method: Types.Signature.METHOD.ECDSA,
@@ -65,4 +66,13 @@
   const request = await requestClient.createRequest(requestCreateParameters);
   const requestData = await request.waitForConfirmation();
   console.log(JSON.stringify(requestData));
+
+  const provider = new providers.JsonRpcProvider(
+    "https://binance.llamarpc.com"
+  );
+  const payerWallet = new Wallet(process.env.PRIVATE_KEY_1, provider);
+
+  const paymentTx = await payRequest(requestData, payerWallet);
+  await paymentTx.wait(2);
+  console.log(`Payment complete. ${paymentTx.hash}`);
 })();
