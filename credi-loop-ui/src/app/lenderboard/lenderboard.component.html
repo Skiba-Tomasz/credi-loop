@@ -4,7 +4,7 @@
         <div class="d-flex align-items-center justify-content-between mt-4 mx-2">
             <input type="text" class="form-control search mr-2" 
                 placeholder="Search for address or description..." [(ngModel)]="searchTerm" (input)="onSearch()"/>
-            <button type="button" class="btn btn-success" style="white-space: nowrap;">Add your proposal</button>
+            <button type="button" class="btn btn-success" style="white-space: nowrap;" (click)="openLenderBoardModal()">Add your proposal</button>
         </div>
         
         

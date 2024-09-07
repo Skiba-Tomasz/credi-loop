@@ -7,6 +7,14 @@ export interface LenderBoardRecord {
   description: string;
 }
 
+export interface LenderBoardRecordCreate{
+  address: string;
+  amount: number;
+  installments: number;
+  apy: number;
+  description: string;
+}
+
 
 export interface PaymentRecord {
   address: string;
