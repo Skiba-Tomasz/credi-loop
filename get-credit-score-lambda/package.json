@@ -1,0 +1,17 @@
+{
+  "name": "get-credit-score-lambda",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.556.0",
+    "@aws-sdk/lib-dynamodb": "^3.556.0",
+    "axios": "^1.7.7"
+  },
+  "scripts": {
+    "clean": "rm -rf ./build.zip",
+    "zip": "zip -r build.zip .",
+    "push": "aws s3api put-object --bucket credi-loop-lambdas --key v1.1-get-cs.zip --body ./build.zip"
+  }
+}
