@@ -33,7 +33,8 @@ export class CrediScoreComponent implements OnInit {
   }
   ngOnInit(): void {
     this.dataService.getCrediscores().subscribe((results) => {
-      this.data = results;
+      this.data = results.sort((a, b) => b.creditScore - a.creditScore);
+      this.filteredData = this.data.slice(0, 50);
     });
   }
 
