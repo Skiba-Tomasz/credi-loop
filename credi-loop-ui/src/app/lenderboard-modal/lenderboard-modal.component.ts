@@ -48,7 +48,6 @@ export class LenderBoardModalComponent {
       this.address,
       this.record.amount
     );
-    debugger;
     console.log(`${JSON.stringify(result)}`);
     this.record.requestNetworkPayload = JSON.stringify(result);
     this.httpClient

@@ -41,3 +41,14 @@ export interface Installment {
   totalInstallments: number;
   amount: number;
 }
+
+export interface PaymentRecordDetails {
+  lender: string;
+  borrower: string;
+  isPaid: boolean;
+  hash: string;
+  requestNetworkPayload: string;
+  installmentIndex: number;
+  installmentAmount: number;
+  installmentPaymentDate: string;
+}

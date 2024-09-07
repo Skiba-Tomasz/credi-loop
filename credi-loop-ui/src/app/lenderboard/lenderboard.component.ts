@@ -95,26 +95,24 @@ export class LenderboardComponent implements OnInit {
         record.address,
         dueDates[i]
       );
-      results.push(
-        result
-      );
-      payments.push(
-        {
-          installmentAmount: insValue,
-          installmentPaymentDate: dueDates[i],
-          installmentIndex: i,
-          requestNetworkPayload: JSON.stringify(result)
-        }
-      );
+      results.push(result);
+      payments.push({
+        installmentAmount: insValue,
+        installmentPaymentDate: dueDates[i],
+        installmentIndex: i,
+        requestNetworkPayload: JSON.stringify(result),
+      });
     }
 
-    this.data.acceptProposal({
-      hash: record.hash,
-      acceptingAddress: this.address,
-      payments: payments,
-    }).subscribe(results => {
-      console.log(`Completed accept ${JSON.stringify(results)}`)
-    });
+    this.data
+      .acceptProposal({
+        hash: record.hash,
+        acceptingAddress: this.address,
+        payments: payments,
+      })
+      .subscribe((results) => {
+        console.log(`Completed accept ${JSON.stringify(results)}`);
+      });
   }
 
   generateDates(amount: number): string[] {

@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreditData, LenderBoardRecord } from './dto/lenderboard.dto';
+import {
+  CreditData,
+  LenderBoardRecord,
+  PaymentRecordDetails,
+} from './dto/lenderboard.dto';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -26,6 +30,13 @@ export class DataService {
     return this.httpClient.post<any>(
       `https://create-proposal-v1.crediloop.com/accept-proposal`,
       payload
+    );
+  }
+
+  getPayments(): Observable<PaymentRecordDetails[]> {
+    return this.httpClient.post<PaymentRecordDetails[]>(
+      `https://create-proposal-v1.crediloop.com/get-payments`,
+      {}
     );
   }
 }

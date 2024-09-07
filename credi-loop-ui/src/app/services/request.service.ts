@@ -32,10 +32,13 @@ export class RequestService {
     payeeIdentity: string,
     amount: number,
     payerIdentity?: string,
-    dueDate?: string,
+    dueDate?: string
   ) {
     const paymentRecipient = payeeIdentity;
     const feeRecipient = '0x0000000000000000000000000000000000000000';
+
+    console.log(amount);
+    console.log(amount * Math.pow(10, 18));
 
     const request = await this.requestClient?.createRequest({
       requestInfo: {
@@ -44,7 +47,7 @@ export class RequestService {
           network: 'optimism',
           value: 'ETH',
         },
-        expectedAmount: amount * Math.pow(10, 8), //0.00001
+        expectedAmount: Math.round(amount * Math.pow(10, 18)), //0.000005
 
         // The payee identity. Not necessarily the same as the payment recipient.
         payee: {
@@ -101,7 +104,7 @@ export class RequestService {
 
   async acceptLoan(requestData: string) {
     // const payerWallet = new Wallet(process.env.PRIVATE_KEY_1, provider);
-    console.log(this.provider);
+    console.log('Accepting Loan');
     const paymentTx = await payRequest(
       JSON.parse(requestData),
       await new providers.Web3Provider((window as any).ethereum).getSigner()

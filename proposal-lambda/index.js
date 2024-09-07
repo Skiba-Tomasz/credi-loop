@@ -142,7 +142,7 @@ function hashCode(str) {
 
 // handler({
 //   rawPath: "/dev/execute/accept-proposal",
-//   body: '{"hash": 1437014403, "acceptingAddress": "0xe28bAB89e496d45A6AD17588AB339bC571483791", "payments": [{ "installmentAmount": 5, "installmentPaymentDate": 5555, "installmentIndex": 0, "requestNetworkPayload": "aaaa" }, { "installmentAmount": 5, "installmentPaymentDate": 6666, "installmentIndex": 1, "requestNetworkPayload": "aaaa" }]}',
+//   body: '{"hash": 1437014403, "acceptingAddress": "0xe28bAB89e496d45A6AD17588AB339bC571483791", "payments": [{ "installmentAmount": 5, "installmentPaymentDate": "date1", "installmentIndex": 0, "requestNetworkPayload": "aaaa" }, { "installmentAmount": 5, "installmentPaymentDate": "date2", "installmentIndex": 1, "requestNetworkPayload": "aaaa" }]}',
 // });
 
 // handler({
