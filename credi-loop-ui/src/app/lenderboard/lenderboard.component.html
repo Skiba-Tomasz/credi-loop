@@ -1,4 +1,25 @@
 <div class="bg-section">
-    <p>{{boardData}}></p>
+    <table class="table table-dark mt-3">
+        <tbody>
+            <tr>
+                <th>Address</th>
+                <th>CrediScore</th>
+                <th>Amount</th>
+                <th>Installments</th>
+                <th>APY</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let record of boardData">
+                <td>{{record.address}}</td>
+                <td>{{record.description}}</td>
+                <td>{{record.crediScore}}</td>
+                <td>{{record.amount}}</td>
+                <td>{{record.installments}}</td>
+                <td>{{record.apy}}</td>
+                <td><button type="button" class="btn btn-info">Fund</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
-
