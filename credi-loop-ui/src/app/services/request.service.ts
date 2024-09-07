@@ -26,20 +26,22 @@ export class RequestService {
     });
   }
 
-  requestPayment() {
-    const payeeIdentity = '0x25deB8346fbFa50D120b0fdBD34B4128F637BB7A';
-    const payerIdentity = '0x25deB8346fbFa50D120b0fdBD34B4128F637BB7A';
+  async requestPayment(
+    payeeIdentity: string,
+    amount: number,
+    payerIdentity?: string
+  ) {
     const paymentRecipient = payeeIdentity;
     const feeRecipient = '0x0000000000000000000000000000000000000000';
 
-    const request = this.requestClient?.createRequest({
+    const request = await this.requestClient?.createRequest({
       requestInfo: {
         currency: {
           type: Types.RequestLogic.CURRENCY.ETH,
           network: 'optimism',
           value: 'ETH',
         },
-        expectedAmount: '10000000000000', //0.00001
+        expectedAmount: amount * Math.pow(10,8), //0.00001
 
         // The payee identity. Not necessarily the same as the payment recipient.
         payee: {
@@ -48,10 +50,10 @@ export class RequestService {
         },
 
         // The payer identity. If omitted, any identity can pay the request.
-        payer: {
+        payer: payerIdentity ? {
           type: Types.Identity.TYPE.ETHEREUM_ADDRESS,
           value: payerIdentity,
-        },
+        } : undefined,
 
         // The request creation timestamp.
         timestamp: Utils.getCurrentTimestampInSecond(),
@@ -81,15 +83,15 @@ export class RequestService {
         value: payeeIdentity,
       },
     });
-    request?.then((req) => {
-      const confirmedRequestData = req.waitForConfirmation();
-      debugger;
-      console.log(`Request prepared ${JSON.stringify(req)}`);
-      confirmedRequestData.then((data) => {
-        debugger;
-        console.log(`Data received ${JSON.stringify(data)}`);
-      });
-    });
+    const confirmedRequestData = await request?.waitForConfirmation();
+    return confirmedRequestData;
+    // request?.then((req) => {
+    //   const confirmedRequestData = req.waitForConfirmation();
+    //   console.log(`Request prepared ${JSON.stringify(req)}`);
+    //   confirmedRequestData.then((data) => {
+    //     console.log(`Data received ${JSON.stringify(data)}`);
+    //   });
+    // });
   }
 
   parseUnits(value: string, decimals: number) {

@@ -57,7 +57,8 @@ export class LenderboardComponent implements OnInit {
       console.log('Modal dismissed');
     });
   }
+  
   onLend() {
-    this.requestService.requestPayment();
+    // this.requestService.requestPayment();
   }
 }

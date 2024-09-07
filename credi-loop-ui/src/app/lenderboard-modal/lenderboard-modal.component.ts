@@ -4,6 +4,7 @@ import { LenderBoardRecordCreate } from '../services/dto/lenderboard.dto';
 import { FormsModule } from '@angular/forms';
 import { MetamaskService } from '../services/metamask.service';
 import { HttpClient } from '@angular/common/http';
+import { RequestService } from '../services/request.service';
 @Component({
   standalone: true,
   imports: [FormsModule],
@@ -26,16 +27,30 @@ export class LenderBoardModalComponent {
   constructor(
     public activeModal: NgbActiveModal,
     private metamaskService: MetamaskService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private requestService: RequestService
   ) {
     metamaskService.$userAddress.subscribe(
       (address) => (this.address = address)
     );
   }
 
-  onSubmit() {
+  async onSubmit() {
+    this.address = this.metamaskService.getUserAddress();
+    if (!this.address) {
+      alert('You have to connect wallet');
+      return;
+    }
+    this.record.address = this.address;
     console.log(this.record); // Handle form submission
     this.activeModal.close(this.record); // Close modal and pass the form data
+    const result = await this.requestService.requestPayment(
+      this.address,
+      this.record.amount
+    );
+    debugger;
+    console.log(`${JSON.stringify(result)}`);
+    this.record.requestNetworkPayload = JSON.stringify(result);
     this.httpClient
       .post(
         `https://create-proposal-v1.crediloop.com/create-proposal`,
