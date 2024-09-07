@@ -1,9 +1,14 @@
 <div class="bg-section">
     <div class="card card-flush mr-1 ml-1 mt-2">
 
-        <input type="text" class="form-control search mb-1 mt-4 mr-2 ml-2"
-            placeholder="Search for address or description..." [(ngModel)]="searchTerm" (input)="onSearch()"
-            style="width: calc(100% - 20px); margin: 10px; box-sizing: border-box;" />
+        <div class="d-flex align-items-center justify-content-between mt-4 mx-2">
+            <input type="text" class="form-control search mr-2" 
+                placeholder="Search for address or description..." [(ngModel)]="searchTerm" (input)="onSearch()"/>
+            <button type="button" class="btn btn-success" style="white-space: nowrap;">Add your proposal</button>
+        </div>
+        
+        
+
         <table class="table table-dark" style="width: calc(100% - 20px); margin: 10px; box-sizing: border-box;">
             <tbody>
                 <tr>
@@ -22,7 +27,7 @@
                     <td>{{record.installments}}</td>
                     <td>{{record.apy}}</td>
                     <td>{{record.description}}</td>
-                    <td><button type="button" class="btn btn-info">Lend</button></td>
+                    <td><button type="button" class="btn btn-success">Lend</button></td>
                 </tr>
             </tbody>
         </table>
