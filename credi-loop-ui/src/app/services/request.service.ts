@@ -6,43 +6,40 @@ import {
 } from '@requestnetwork/request-client.js';
 import { Web3SignatureProvider } from '@requestnetwork/web3-signature';
 import { providers } from 'ethers';
+import { MetamaskService } from './metamask.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RequestService {
-  requestClient: RequestNetwork;
+  requestClient?: RequestNetwork;
 
-  constructor() {
+  constructor(private metamaskService: MetamaskService) {
     let provider;
-    provider = new providers.JsonRpcProvider('https://mainnet.optimism.io');
+    provider = metamaskService.getProvider();
     const web3SignatureProvider = new Web3SignatureProvider(provider);
     this.requestClient = new RequestNetwork({
       nodeConnectionConfig: {
-        baseURL: 'https://sepolia.gateway.request.network/',
+        baseURL: 'https://gnosis.gateway.request.network',
       },
       signatureProvider: web3SignatureProvider,
     });
   }
 
   requestPayment() {
-    const payeeIdentity = '0x7eB023BFbAeE228de6DC5B92D0BeEB1eDb1Fd567';
-    const payerIdentity = '0x519145B771a6e450461af89980e5C17Ff6Fd8A92';
+    const payeeIdentity = '0x25deB8346fbFa50D120b0fdBD34B4128F637BB7A';
+    const payerIdentity = '0x25deB8346fbFa50D120b0fdBD34B4128F637BB7A';
     const paymentRecipient = payeeIdentity;
     const feeRecipient = '0x0000000000000000000000000000000000000000';
 
-    const request = this.requestClient.createRequest({
+    const request = this.requestClient?.createRequest({
       requestInfo: {
-        // The currency in which the request is denominated
         currency: {
-          type: Types.RequestLogic.CURRENCY.ERC20,
-          value: '0x370DE27fdb7D1Ff1e1BaA7D11c5820a324Cf623C',
-          // network: 'sepolia',
+          type: Types.RequestLogic.CURRENCY.ETH,
+          network: 'optimism',
+          value: 'ETH',
         },
-
-        // The expected amount as a string, in parsed units, respecting `decimals`
-        // Consider using `parseUnits()` from ethers or viem
-        expectedAmount: '1000000000000000000',
+        expectedAmount: '10000000000000', //0.00001
 
         // The payee identity. Not necessarily the same as the payment recipient.
         payee: {
@@ -62,12 +59,12 @@ export class RequestService {
 
       // The paymentNetwork is the method of payment and related details.
       paymentNetwork: {
-        id: Types.Extension.PAYMENT_NETWORK_ID.ERC20_FEE_PROXY_CONTRACT,
+        id: Types.Extension.PAYMENT_NETWORK_ID.ETH_FEE_PROXY_CONTRACT,
         parameters: {
-          paymentNetworkName: 'sepolia',
+          paymentNetworkName: 'optimism',
           paymentAddress: payeeIdentity,
           feeAddress: feeRecipient,
-          feeAmount: '1',
+          feeAmount: '0',
         },
       },
 
@@ -84,15 +81,15 @@ export class RequestService {
         value: payeeIdentity,
       },
     });
-    request.then(req => {
+    request?.then((req) => {
       const confirmedRequestData = req.waitForConfirmation();
-      debugger
-      console.log(`Request prepared ${JSON.stringify(req)}`)
-      confirmedRequestData.then(data => {
-        debugger
-        console.log(`Data received ${JSON.stringify(data)}`)
-      })
-    })
+      debugger;
+      console.log(`Request prepared ${JSON.stringify(req)}`);
+      confirmedRequestData.then((data) => {
+        debugger;
+        console.log(`Data received ${JSON.stringify(data)}`);
+      });
+    });
   }
 
   parseUnits(value: string, decimals: number) {

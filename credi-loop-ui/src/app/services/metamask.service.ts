@@ -26,6 +26,10 @@ export class MetamaskService {
     }
   }
 
+  public getProvider() {
+    return this.provider;
+  }
+
   // Check if MetaMask is installed
   isMetaMaskInstalled(): boolean {
     return Boolean(this.provider);
@@ -51,7 +55,7 @@ export class MetamaskService {
     }
   }
 
-  getUserAddress(){
+  getUserAddress() {
     return this.userAddress;
   }
 }
