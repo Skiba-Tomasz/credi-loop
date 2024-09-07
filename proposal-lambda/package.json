@@ -12,6 +12,6 @@
   "scripts": {
     "clean": "rm -rf ./build.zip",
     "zip": "zip -r build.zip .",
-    "push": "aws s3api put-object --bucket credi-loop-lambdas --key v1.7-create-proposal.zip --body ./build.zip"
+    "push": "aws s3api put-object --bucket credi-loop-lambdas --key v1.0-proposal.zip --body ./build.zip"
   }
 }
