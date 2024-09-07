@@ -21,4 +21,35 @@
         </div>
     </div>
 
+    <div class="card card-flush mr-3 ml-3 mt-2">
+        <div class="card-header border-0">
+            <div class="d-flex flex-column align-items-center">
+                <div class="d-flex flex-row justify-content-center">
+                    <span class="fs-5 fw-bold text-white text-nowrap">
+                        Upcomming payments
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2 mr-0 ml-0">
+            <table class="table table-dark" style="width: calc(100% - 20px); margin: 10px; box-sizing: border-box;">
+                <tbody>
+                    <tr>
+                        <th>Address</th>
+                        <th>Due date</th>
+                        <th>Installement</th>
+                        <th>Amount</th>
+                        <th></th>
+                    </tr>
+                    <tr *ngFor="let record of records">
+                        <td>{{record.address}}</td>
+                        <td>{{ record.dueDate | date: 'dd.MM.yyyy' }}</td>
+                        <td>{{record.installment}} / {{record.totalInstallments}}</td>
+                        <td>{{record.amount}}</td>
+                        <td><button type="button" class="btn btn-success">Pay</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

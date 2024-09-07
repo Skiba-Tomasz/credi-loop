@@ -1,4 +1,4 @@
-<div class="bg-sections">
+<div class="bg-section">
 
     <div class="row mt-2 mr-0 ml-0">
         <div class="col-3">
@@ -26,7 +26,7 @@
             <div class="d-flex flex-column align-items-center">
                 <div class="d-flex flex-row justify-content-center">
                     <span class="fs-5 fw-bold text-white text-nowrap">
-                        Upcomming payments
+                        Expected payments
                     </span>
                 </div>
             </div>
@@ -39,14 +39,12 @@
                         <th>Due date</th>
                         <th>Installement</th>
                         <th>Amount</th>
-                        <th></th>
                     </tr>
                     <tr *ngFor="let record of records">
                         <td>{{record.address}}</td>
                         <td>{{ record.dueDate | date: 'dd.MM.yyyy' }}</td>
                         <td>{{record.installment}} / {{record.totalInstallments}}</td>
                         <td>{{record.amount}}</td>
-                        <td><button type="button" class="btn btn-success">Pay</button></td>
                     </tr>
                 </tbody>
             </table>
