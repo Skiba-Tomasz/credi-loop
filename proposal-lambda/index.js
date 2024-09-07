@@ -106,6 +106,16 @@ export async function handler(event, context) {
 
     console.log(results);
     return payments;
+  } else if (event.rawPath.endsWith("get-payments")) {
+    const proposalsCommand = new QueryCommand({
+      TableName: "payments-v1",
+      KeyConditionExpression: "#key = :key",
+      ExpressionAttributeNames: { "#key": "partition" },
+      ExpressionAttributeValues: { ":key": "ALL" },
+    });
+    const results = (await docClient.send(proposalsCommand)).Items;
+    console.log(results);
+    return results;
   }
 }
 
@@ -131,4 +141,8 @@ function hashCode(str) {
 // handler({
 //   rawPath: "/dev/execute/accept-proposal",
 //   body: '{"hash": 1437014403, "acceptingAddress": "0xe28bAB89e496d45A6AD17588AB339bC571483791", "payments": [{ "installmentAmount": 5, "installmentPaymentDate": 5555, "installmentIndex": 0 }, { "installmentAmount": 5, "installmentPaymentDate": 6666, "installmentIndex": 1 }]}',
+// });
+
+// handler({
+//   rawPath: "/dev/execute/get-payments",
 // });
