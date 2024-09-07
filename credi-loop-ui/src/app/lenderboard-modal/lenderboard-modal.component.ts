@@ -16,6 +16,7 @@ export class LenderBoardModalComponent {
     installments: 0,
     apy: 0,
     description: '',
+    requestNetworkPayload: ''
   };
 
   constructor(public activeModal: NgbActiveModal) {}
