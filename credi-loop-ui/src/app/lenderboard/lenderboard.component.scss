@@ -2,13 +2,18 @@
     .table {
         background-color: rgb(142, 0, 156, 0.1); // semi-transparent background color
 
-        th, td {
+        th,
+        td {
             opacity: 1; // ensure full opacity for the text and content
         }
-        
+
         // Optionally, you can set specific styles for the button and other elements
         button {
             opacity: 1;
         }
     }
+}
+
+.search {
+    background-color: rgb(142, 0, 156, 0.1);
 }
