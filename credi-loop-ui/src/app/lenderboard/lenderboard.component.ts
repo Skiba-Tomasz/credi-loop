@@ -31,7 +31,9 @@ export class LenderboardComponent implements OnInit {
   ngOnInit(): void {
     this.data.getLenderboard().subscribe((response: any) => {
       this.boardData = response;
-      this.filteredBoardData = this.boardData;
+      this.filteredBoardData = this.boardData.filter(
+        (e) => e.accepted === false
+      );
 
       this.fuse = new Fuse(this.boardData, {
         keys: ['address', 'description'],

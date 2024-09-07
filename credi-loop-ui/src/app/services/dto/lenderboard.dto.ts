@@ -5,6 +5,7 @@ export interface LenderBoardRecord {
   installments: number;
   apy: number;
   description: string;
+  accepted?: boolean;
 }
 
 export interface LenderBoardRecordCreate {
