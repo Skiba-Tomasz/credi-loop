@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
+import { LenderBoardRecord } from '../services/dto/lenderboard.dto';
+import { MockDataService } from '../services/mock-data.service';
 
 @Component({
   selector: 'app-lenderboard',
@@ -9,12 +11,12 @@ import { DataService } from '../services/data.service';
   styleUrl: './lenderboard.component.scss',
 })
 export class LenderboardComponent implements OnInit {
-  payments?: string;
+  boardData?: LenderBoardRecord[];
 
-  constructor(private readonly data: DataService) {}
+  constructor(private readonly data: MockDataService) {}
   ngOnInit(): void {
-    this.data.getData().subscribe((response: any) => {
-      this.payments = JSON.stringify(response);
+    this.data.getLenderBoardRecords().then((response: any) => {
+      this.boardData = response;
     });
   }
 }
