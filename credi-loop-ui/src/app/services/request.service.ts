@@ -8,6 +8,7 @@ import { Web3SignatureProvider } from '@requestnetwork/web3-signature';
 import { providers } from 'ethers';
 import { MetamaskService } from './metamask.service';
 import { payRequest } from '@requestnetwork/payment-processor';
+import { getTheGraphClient } from '@requestnetwork/payment-detection';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,14 @@ export class RequestService {
         baseURL: 'https://gnosis.gateway.request.network',
       },
       signatureProvider: this.web3SignatureProvider,
+      paymentOptions: {
+        getSubgraphClient: (chainId: string) => {
+          return getTheGraphClient(
+            'mantle',
+            'https://subgraph-api.mantle.xyz/api/public/555176e7-c1f4-49f9-9180-f2f03538b039/subgraphs/requestnetwork/request-payments-mantle/v0.1.0/gn'
+          );
+        },
+      },
     });
   }
 
@@ -41,7 +50,7 @@ export class RequestService {
       requestInfo: {
         currency: {
           type: Types.RequestLogic.CURRENCY.ETH,
-          network: 'optimism',
+          network: 'mantle',
           value: 'ETH',
         },
         expectedAmount: Math.round(amount * Math.pow(10, 18)), //0.000005
@@ -68,7 +77,7 @@ export class RequestService {
       paymentNetwork: {
         id: Types.Extension.PAYMENT_NETWORK_ID.ETH_FEE_PROXY_CONTRACT,
         parameters: {
-          paymentNetworkName: 'optimism',
+          paymentNetworkName: 'mantle',
           paymentAddress: payeeIdentity,
           feeAddress: feeRecipient,
           feeAmount: '0',
