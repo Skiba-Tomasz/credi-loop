@@ -11,11 +11,12 @@ import { DataService } from '../services/data.service';
 import { MetamaskService } from '../services/metamask.service';
 import { RequestService } from '../services/request.service';
 import { HttpClient } from '@angular/common/http';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-my-loans',
   standalone: true,
-  imports: [ComponentsModule, CommonModule],
+  imports: [ComponentsModule, CommonModule, NgxSpinnerModule],
   templateUrl: './my-loans.component.html',
   styleUrl: './my-loans.component.scss',
 })
@@ -26,7 +27,8 @@ export class MyLoansComponent {
     dataService: DataService,
     metamaskService: MetamaskService,
     private requestService: RequestService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private spinner: NgxSpinnerService
   ) {
     metamaskService.connectMetaMask().then((_) => {
       dataService.getPayments().subscribe((results) => {
@@ -64,6 +66,7 @@ export class MyLoansComponent {
 
   onPay(record: PaymentRecordDetails) {
     console.log(record);
+    this.spinner.show();
     this.requestService
       .pay((record as any).requestNetworkPayload)
       .then((ok) => {
@@ -73,6 +76,7 @@ export class MyLoansComponent {
           })
           .subscribe((result) => {
             console.log(result);
+            this.spinner.hide();
           });
       });
   }
