@@ -67,6 +67,17 @@ export class LenderboardComponent implements OnInit {
     modalRef.result
       .then((result: LenderBoardRecord) => {
         console.log('Modal closed with:', result); // Handle the form data submission here
+        setTimeout(() => {
+          this.data.getLenderboard().subscribe((response: any) => {
+            this.boardData = response;
+            this.filteredBoardData = this.boardData;
+
+            this.fuse = new Fuse(this.boardData, {
+              keys: ['address', 'description'],
+              threshold: 0.3,
+            });
+          });
+        }, 500);
       })
       .catch((error) => {
         console.log('Modal dismissed');

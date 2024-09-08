@@ -43,14 +43,13 @@ export class LenderBoardModalComponent {
     }
     this.record.address = this.address;
     console.log(this.record); // Handle form submission
-    this.activeModal.close(this.record); // Close modal and pass the form data
     const result = await this.requestService.requestPayment(
       this.address,
       this.record.amount
     );
     console.log(`${JSON.stringify(result)}`);
     this.record.requestNetworkPayload = JSON.stringify(result);
-    this.httpClient
+    await this.httpClient
       .post(
         `https://create-proposal-v1.crediloop.com/create-proposal`,
         this.record
@@ -58,5 +57,6 @@ export class LenderBoardModalComponent {
       .subscribe((result) => {
         console.log(result);
       });
+      this.activeModal.close(this.record); // Close modal and pass the form data
   }
 }
