@@ -31,7 +31,8 @@
             "styles": [
               "./node_modules/@forevolve/bootstrap-dark/dist/css/toggle-bootstrap.min.css",
               "./node_modules/@forevolve/bootstrap-dark/dist/css/toggle-bootstrap-dark.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
             ],
             "scripts": []
           },

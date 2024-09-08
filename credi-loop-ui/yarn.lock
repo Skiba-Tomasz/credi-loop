@@ -239,7 +239,7 @@
     ora "5.4.1"
     rxjs "7.8.1"
 
-"@angular/animations@^17.3.0", "@angular/animations@>=12.0.0", "@angular/animations@17.3.12":
+"@angular/animations@^17.3.0", "@angular/animations@>=12.0.0", "@angular/animations@>=15.0.0", "@angular/animations@17.3.12":
   version "17.3.12"
   resolved "https://registry.npmjs.org/@angular/animations/-/animations-17.3.12.tgz"
   integrity sha512-9hsdWF4gRRcVJtPcCcYLaX1CIyM9wUu6r+xRl6zU5hq8qhl35hig6ounz7CXFAzLf0WDBdM16bPHouVGaG76lg==
@@ -301,7 +301,7 @@
     symbol-observable "4.0.0"
     yargs "17.7.2"
 
-"@angular/common@^17.3.0", "@angular/common@^18.0.0", "@angular/common@^18.0.1", "@angular/common@>=12.0.0", "@angular/common@>=18.0.0", "@angular/common@17.3.12":
+"@angular/common@^17.3.0", "@angular/common@^18.0.0", "@angular/common@^18.0.1", "@angular/common@>=12.0.0", "@angular/common@>=15.0.0", "@angular/common@>=18.0.0", "@angular/common@17.3.12":
   version "17.3.12"
   resolved "https://registry.npmjs.org/@angular/common/-/common-17.3.12.tgz"
   integrity sha512-vabJzvrx76XXFrm1RJZ6o/CyG32piTB/1sfFfKHdlH1QrmArb8It4gyk9oEjZ1IkAD0HvBWlfWmn+T6Vx3pdUw==
@@ -329,7 +329,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@^17.3.0", "@angular/core@^18.0.0", "@angular/core@^18.0.1", "@angular/core@>=12.0.0", "@angular/core@>=18.0.0", "@angular/core@17.3.12":
+"@angular/core@^17.3.0", "@angular/core@^18.0.0", "@angular/core@^18.0.1", "@angular/core@>=12.0.0", "@angular/core@>=15.0.0", "@angular/core@>=18.0.0", "@angular/core@17.3.12":
   version "17.3.12"
   resolved "https://registry.npmjs.org/@angular/core/-/core-17.3.12.tgz"
   integrity sha512-MuFt5yKi161JmauUta4Dh0m8ofwoq6Ino+KoOtkYMBGsSx+A7dSm+DUxxNwdj7+DNyg3LjVGCFgBFnq4g8z06A==
@@ -7533,6 +7533,13 @@ ng-apexcharts@^1.11.0:
   integrity sha512-bzZ2qMYpJJ1V/Yfp9eC5y7BuxrlZx4fc9ev9pNHW8qEs5B0yE5yW25WrLhoGTYsfeFZfiADWeAmZkceEiihpFw==
   dependencies:
     tslib "^2.0.0"
+
+ngx-spinner@^17.0.0:
+  version "17.0.0"
+  resolved "https://registry.npmjs.org/ngx-spinner/-/ngx-spinner-17.0.0.tgz"
+  integrity sha512-VWDSvLlCnaWqu0W1L+ybQIRHTbd+GffkX1sWs++iMPXMGVJ2ZCuzW32FHnu+p0regMUHU8r1/rvUcFD0YooJxQ==
+  dependencies:
+    tslib "^2.3.0"
 
 nice-napi@^1.0.2:
   version "1.0.2"

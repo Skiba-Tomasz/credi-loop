@@ -5,18 +5,18 @@ import { FormsModule } from '@angular/forms';
 import { MetamaskService } from '../services/metamask.service';
 import { HttpClient } from '@angular/common/http';
 import { RequestService } from '../services/request.service';
-import { SpinnerComponent } from "../components/spinner/spinner.component";
+import { SpinnerComponent } from '../components/spinner/spinner.component';
 import { CommonModule } from '@angular/common';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 @Component({
   standalone: true,
-  imports: [FormsModule, SpinnerComponent, CommonModule],
+  imports: [FormsModule, NgxSpinnerModule, CommonModule],
   selector: 'app-lenderboard-modal',
   templateUrl: './lenderboard-modal.component.html',
   styleUrls: ['./lenderboard-modal.component.scss'],
 })
 export class LenderBoardModalComponent {
   address?: string;
-  spinner: boolean = false;
 
   @Input() record: LenderBoardRecordCreate = {
     address: '',
@@ -31,7 +31,8 @@ export class LenderBoardModalComponent {
     public activeModal: NgbActiveModal,
     private metamaskService: MetamaskService,
     private httpClient: HttpClient,
-    private requestService: RequestService
+    private requestService: RequestService,
+    private spinner: NgxSpinnerService
   ) {
     metamaskService.$userAddress.subscribe(
       (address) => (this.address = address)
@@ -39,7 +40,7 @@ export class LenderBoardModalComponent {
   }
 
   async onSubmit() {
-    this.spinner = true;
+    this.spinner.show();
     this.address = this.metamaskService.getUserAddress();
     if (!this.address) {
       alert('You have to connect wallet');
@@ -61,7 +62,7 @@ export class LenderBoardModalComponent {
       .subscribe((result) => {
         console.log(result);
       });
-      this.spinner = false;
-      this.activeModal.close(this.record); // Close modal and pass the form data
+    this.spinner.hide();
+    this.activeModal.close(this.record); // Close modal and pass the form data
   }
 }
