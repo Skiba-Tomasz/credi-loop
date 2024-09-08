@@ -85,7 +85,7 @@ async function saveCreditScores(creditScores) {
 
 async function fetch(skip, fetchSize) {
   const endpoint =
-    "https://gateway.thegraph.com/api/3b77079354a6291da012e3a7c45ecd69/subgraphs/id/4PScFUi3CFDbop9XzT6gCDtD4RR8kRzyrzSjrHoXHZBt";
+    "https://subgraph-api.mantle.xyz/api/public/555176e7-c1f4-49f9-9180-f2f03538b039/subgraphs/requestnetwork/request-payments-mantle/v0.1.0/gn";
   const query = {
     query: `{payments(first: ${fetchSize}, skip: ${skip}) {txHash,tokenAddress,amount,amountInCrypto,to,from,currency}}`,
   };
