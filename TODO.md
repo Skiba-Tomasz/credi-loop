@@ -1,5 +1,5 @@
-- after creating proposal - reload list of proposals
-- after lend - reload list of proposals
+- x after creating proposal - reload list of proposals
+- x after lend - reload list of proposals
 - after chaning address in metamask - reload on page
 - formatting "My borrowing" - not like this 3.6666666666666667e-7 (currently)
 
