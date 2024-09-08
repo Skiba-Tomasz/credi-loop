@@ -7,5 +7,6 @@ A decentralized B2B marketplace enabling businesses to request and lend loans wi
 Live demo [URL](https://crediloop.com/home)
 
 Authors:
-Wojciech Rybakiewicz [Twitter](https://twitter.com/w_rybakiewicz)
-Tomasz Skiba [Twitter](https://twitter.com/___Skiba)
+
+- Wojciech Rybakiewicz [Twitter](https://twitter.com/w_rybakiewicz)
+- Tomasz Skiba [Twitter](https://twitter.com/___Skiba)
