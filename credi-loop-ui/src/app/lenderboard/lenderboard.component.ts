@@ -124,6 +124,17 @@ export class LenderboardComponent implements OnInit {
       })
       .subscribe((results) => {
         console.log(`Completed accept ${JSON.stringify(results)}`);
+        setTimeout(() => {
+          this.data.getLenderboard().subscribe((response: any) => {
+            this.boardData = response;
+            this.filteredBoardData = this.boardData;
+
+            this.fuse = new Fuse(this.boardData, {
+              keys: ['address', 'description'],
+              threshold: 0.3,
+            });
+          });
+        }, 500);
       });
   }
 
