@@ -50,7 +50,7 @@
             <td>{{ record.lender }}</td>
             <td>{{ record.installmentPaymentDate | date : "dd.MM.yyyy" }}</td>
             <td>{{ record.installmentIndex + 1 }}</td>
-            <td>{{ record.installmentAmount }}</td>
+            <td>{{ record.installmentAmount.toFixed(6) }}</td>
             <td>
               <button
                 *ngIf="record.isPaid === false; else paidTemplate"
