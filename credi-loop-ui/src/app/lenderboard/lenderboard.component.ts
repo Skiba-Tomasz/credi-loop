@@ -9,11 +9,12 @@ import { LenderBoardModalComponent } from '../lenderboard-modal/lenderboard-moda
 import { RequestService } from '../services/request.service';
 import { DataService } from '../services/data.service';
 import { MetamaskService } from '../services/metamask.service';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-lenderboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgxSpinnerModule],
   templateUrl: './lenderboard.component.html',
   styleUrls: ['./lenderboard.component.scss'],
 })
@@ -28,7 +29,8 @@ export class LenderboardComponent implements OnInit {
     private readonly data: DataService,
     private modalService: NgbModal,
     private requestService: RequestService,
-    private metamaskService: MetamaskService
+    private metamaskService: MetamaskService,
+    private spinner: NgxSpinnerService
   ) {
     metamaskService.$userAddress.subscribe(
       (address) => (this.address = address)
@@ -86,6 +88,7 @@ export class LenderboardComponent implements OnInit {
 
   async onLend(record: LenderBoardRecord) {
     console.log(record);
+    this.spinner.show();
     this.address = this.metamaskService.getUserAddress();
     if (!this.address) {
       alert('You have to connect wallet');
@@ -133,6 +136,7 @@ export class LenderboardComponent implements OnInit {
               keys: ['address', 'description'],
               threshold: 0.3,
             });
+            this.spinner.hide();
           });
         }, 500);
       });
